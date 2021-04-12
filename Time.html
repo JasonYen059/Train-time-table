@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="shortcut icon" href="#">
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+    ></script>
+    <title>Train Time App</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    <style type="text/css">
+    *{
+      margin: 0;
+      padding: 0;
+      font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+    background: linear-gradient(120deg, rgb(255, 187, 0), #ca2f00);
+    color: rgb(66, 66, 66);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #timeApp{
+      width: 400px;
+      height: 600px;
+      border-radius: 15px;
+      border: none;
+      background-color: #f5f5f5;
+    }
+
+    header{
+      width: 100%;
+      height: 50px;
+      font-size: 30px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    #container {
+      width: 300px;
+      height: 500px;
+      background-color: #ffffff;
+      border: none;
+      margin: auto;
+      border-radius: 10px;
+
+      
+    }
+
+   #fromWhere, #toWhere {
+     width: 50px;
+     margin: auto;
+     outline: none;
+     border-radius: 5px;
+     cursor: pointer;
+   }
+
+   #fromWhere ,#toWhere {
+     width: 100px;
+     height: 30px;
+   }
+
+   .setLocation {
+     width: 300px;
+     height: 50px;
+     background-color: rgba(255, 194, 115, 0.952);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 0 0 ;
+   }
+
+   .dateContainer ,.confirmDiv{
+    width: 300px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+   }
+
+   .dateContainer p{
+     position: absolute;
+     left: 55px;
+   }
+
+   #chosenDate, #confirm{
+     margin: auto;
+     width: 150px;
+     height: 35px;
+     background-color: white;
+     border: 1px solid #cccccc;
+     text-align: center;
+     border-radius: 5px;
+     outline: none;
+     transition: 0.5s ease;
+     cursor: pointer;
+   }
+   
+
+   #confirm:hover {
+     box-shadow: 2px 2px rgb(139, 139, 139);
+   }
+
+   #timeTable{
+     width: 300px;
+     height: 350px;
+     margin-top: 10px;
+   }
+
+   #trainNumTime {
+     list-style: none;
+     width: 300px;
+    height: 300px;
+    overflow: auto;
+   }
+
+   li{
+     margin: auto;
+    width: 290px;
+    height: 35px;
+    border: none;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+
+   .tableTitle{
+     width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+
+
+   .tableTitle p{
+    width: 140px;
+    height: 30px;
+    text-align: center;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+   }
+
+   li span{
+     width: 150px;
+     height: 30px;
+     background-color: rgba(255, 194, 115, 0.952);
+     text-align: center;
+     margin: 3px;
+     padding: 5px;
+     border-radius: 5px;
+   }
+
+   
+
+  
+    </style>    
+</head>
+  <div></div>
+  
+
+<body>
+  <div id="timeApp">
+    <div id="title">
+      <header>THSR Time</header>
+    </div>
+    
+  
+
+     <div id="container">
+       <div class="setLocation">
+       <select id="fromWhere" >
+        <option value="" disabled selected>出發</option>
+         <option value="0990">南港</option>
+         <option value="1000">台北</option>
+         <option value="1010">板橋</option>
+         <option value="1020">桃園</option>
+         <option value="1030">新竹</option>
+         <option value="1035">苗栗</option>
+         <option value="1040">台中</option>
+         <option value="1043">彰化</option>
+         <option value="1047">雲林</option>
+         <option value="1050">嘉義</option>
+         <option value="1060">台南</option>
+         <option value="1070">左營</option>
+       </select>
+
+       <select id="toWhere" >
+        <option value="" disabled selected>目的地</option>
+        <option value="0990">南港</option>
+       <option value="1000">台北</option>
+       <option value="1010">板橋</option>
+       <option value="1020">桃園</option>
+       <option value="1030">新竹</option>
+       <option value="1035">苗栗</option>
+       <option value="1040">台中</option>
+       <option value="1043">彰化</option>
+       <option value="1047">雲林</option>
+       <option value="1050">嘉義</option>
+       <option value="1060">台南</option>
+       <option value="1070">左營</option>
+      </select>
+       </div>
+
+       <div class="dateContainer">
+        <p><i class="far fa-calendar-alt"></i></p>
+        <input id="chosenDate" placeholder="Choose your date...">
+       </div>
+
+       <div class="confirmDiv">
+        <button id="confirm">確 定</button>
+       </div>
+
+       <div id="timeTable">
+         <div class="tableTitle">
+          <p>車 次</p>
+          <p>上車時間</p>
+         </div>
+        <ul id="trainNumTime">
+         
+        </ul>
+     
+       </div>
+
+     </div>
+    </div>
+        
+
+    <script type="text/javascript">
+
+    let fakeData =[{
+    "TrainDate":"2021-04-09",
+    "DailyTrainInfo":{"TrainNo":"0803","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},
+    "OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:15","DepartureTime":"06:15"},
+    "DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:40","DepartureTime":"08:40"},
+    "UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    
+    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0603","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:40","DepartureTime":"06:40"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:50","DepartureTime":"08:50"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    
+    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0805","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:00","DepartureTime":"07:00"},"DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:25","DepartureTime":"09:25"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    
+    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0109","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:20","DepartureTime":"07:20"},"DestinationStopTime":{"StopSequence":5,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:05","DepartureTime":"09:05"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    
+    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0609","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:35","DepartureTime":"07:35"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:45","DepartureTime":"09:45"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}]
+
+    $(function(){
+        $("#chosenDate").datepicker({
+          dateFormat:"yy-mm-dd"
+        });
+      });
+
+
+    $("#confirm").click((event)=>{
+      event.preventDefault();
+      let start = $("#fromWhere").val();
+      let end = $("#toWhere").val();
+      let dateControl = $("#chosenDate").val();
+      console.log(dateControl);
+
+    //   var ourRequest = new XMLHttpRequest();
+    // ourRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/${start}/to/${end}/${dateControl}?$format=JSON`);
+    // ourRequest.send();
+    // ourRequest.onload=function() {
+    //   var data = JSON.parse(this.responseText);
+    //   console.log(data);
+    // }
+    $("li").remove();
+    fakeData.forEach((e,i)=>{
+        let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
+        let arriveTime = fakeData[i].OriginStopTime.ArrivalTime;
+        console.log(arriveTime);
+        $("#trainNumTime").append(`<li> <span>${trainNo}</span> <span>${arriveTime}</span></li>`);
+      });
+
+    });
+    
+   
+
+      
+
+
+    </script>
+</body>
+</html>
