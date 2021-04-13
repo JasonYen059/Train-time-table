@@ -33,7 +33,7 @@
     align-items: center;
 }
 
-    #timeApp{
+    #timeApp, #showInfo{
       width: 400px;
       height: 600px;
       border-radius: 15px;
@@ -59,7 +59,6 @@
       border: none;
       margin: auto;
       border-radius: 10px;
-
       
     }
 
@@ -86,31 +85,36 @@
     border-radius: 10px 10px 0 0 ;
    }
 
-   .dateContainer ,.confirmDiv{
-    width: 300px;
-    height: 50px;
+   .dateContainer ,.confirmDiv,.timeContainer{
+    margin: 10px auto;
+    width: 250px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    
+    border-bottom: 1px solid #dfdfdf;
    }
 
    .dateContainer p{
-     position: absolute;
-     left: 55px;
+     float: left;
    }
 
-   #chosenDate, #confirm{
+   #chosenDate, #confirm ,#chosenTime{
      margin: auto;
-     width: 150px;
+     width: 250px;
      height: 35px;
      background-color: white;
-     border: 1px solid #cccccc;
+     border: none;
      text-align: center;
      border-radius: 5px;
      outline: none;
      transition: 0.5s ease;
      cursor: pointer;
+   }
+
+   #chosenTime {
+     text-align-last: center;
    }
    
 
@@ -124,54 +128,85 @@
      margin-top: 10px;
    }
 
-   #trainNumTime {
+   
+/* ------------------------------------------------------------------------- */
+   #showInfo{
+     display: none;
+   }
+
+
+
+   #infoTitle {
+    height: 40px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    color: white;
+    background-color: white;
+    position: relative;
+    background-color: rgba(255, 194, 115, 0.952);
+   }
+
+   #info {
+      width: 100%;
+      height: 560px;
+      background-color: #f5f5f5;
+      border: none;
+      border-radius: 10px;
+      overflow: auto;
+    }
+
+    #infoBack{
+      position: absolute;
+      left: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #infoBack:hover{
+     font-size: 25px;
+    }
+
+    .infoTable{
+      width: 325px;
+      height: 100px;
+     background-color: white;
+      border-radius: 10px;
+      margin: 10px auto;
+      box-shadow: 1px 1px rgb(0, 0, 0);
+    }
+
+    .timeInfo , .numPriceInfo{
+      width: 325px;
+      height: 50px;
+      font-size: 20px;
+      padding: 10px;
+      display: flex;
+    justify-content:space-between;
+    align-items: center;
+    }
+
+    .timeFrom, .timeTo , .toIcon, .num , .price{
+      width: 100px;
+      text-align:center ;
+    }
+
+    .numPriceInfo{
+      border-top: 2px solid #f5f5f5;
+    }
+
+
+    #trainNumTime {
      list-style: none;
-     width: 300px;
+     width: 100%;
     height: 300px;
     overflow: auto;
    }
 
-   li{
-     margin: auto;
-    width: 290px;
-    height: 35px;
-    border: none;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   }
-
-   .tableTitle{
-     width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   }
-
-
-   .tableTitle p{
-    width: 140px;
-    height: 30px;
-    text-align: center;
-    margin: 3px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #cccccc;
-   }
-
-   li span{
-     width: 150px;
-     height: 30px;
-     background-color: rgba(255, 194, 115, 0.952);
-     text-align: center;
-     margin: 3px;
-     padding: 5px;
-     border-radius: 5px;
-   }
-
    
-
   
     </style>    
 </head>
@@ -184,69 +219,84 @@
       <header>THSR Time</header>
     </div>
     
-  
-
      <div id="container">
        <div class="setLocation">
        <select id="fromWhere" >
-        <option value="" disabled selected>出發</option>
-         <option value="0990">南港</option>
-         <option value="1000">台北</option>
-         <option value="1010">板橋</option>
-         <option value="1020">桃園</option>
-         <option value="1030">新竹</option>
-         <option value="1035">苗栗</option>
-         <option value="1040">台中</option>
-         <option value="1043">彰化</option>
-         <option value="1047">雲林</option>
-         <option value="1050">嘉義</option>
-         <option value="1060">台南</option>
-         <option value="1070">左營</option>
+        <option value="" disabled selected>出發</option> 
        </select>
-
        <select id="toWhere" >
         <option value="" disabled selected>目的地</option>
-        <option value="0990">南港</option>
-       <option value="1000">台北</option>
-       <option value="1010">板橋</option>
-       <option value="1020">桃園</option>
-       <option value="1030">新竹</option>
-       <option value="1035">苗栗</option>
-       <option value="1040">台中</option>
-       <option value="1043">彰化</option>
-       <option value="1047">雲林</option>
-       <option value="1050">嘉義</option>
-       <option value="1060">台南</option>
-       <option value="1070">左營</option>
       </select>
        </div>
+
 
        <div class="dateContainer">
         <p><i class="far fa-calendar-alt"></i></p>
         <input id="chosenDate" placeholder="Choose your date...">
        </div>
 
+       <div class="timeContainer">
+        <p><i class="far fa-clock"></i></i></p>
+        <select name="time" id="chosenTime">
+          <option value="">14 : 25</option>
+          <option value="">14 : 40</option>
+          <option value="">15 : 25</option>
+          <option value="">15 : 40</option>
+        </select>
+       </div>
+
        <div class="confirmDiv">
         <button id="confirm">確 定</button>
        </div>
-
-       <div id="timeTable">
-         <div class="tableTitle">
-          <p>車 次</p>
-          <p>上車時間</p>
-         </div>
-        <ul id="trainNumTime">
-         
-        </ul>
-     
-       </div>
-
      </div>
+    </div>
+
+
+    <div id="showInfo">
+      <div id="infoTitle">
+        <span id="infoBack"><i class="fas fa-chevron-left"></i></span>
+        <p id="infoDate">111</p>
+      </div>
+      <div id="info">
+        <!-- <div class="infoTable">
+          <div class="timeInfo">
+            <span class="timeFrom">15:20</span>
+            <span class="toIcon"><i class="fas fa-long-arrow-alt-right"></i></span>
+            <span class="timeTo">17:50</span>
+          </div>
+
+          <div class="numPriceInfo">
+            <span class="num">車次 808</span>
+            <span class="price">$760</span>
+          </div>
+        </div> -->
+      </div>
     </div>
         
 
     <script type="text/javascript">
+    var options = [];
+    let start = $("#fromWhere").val();
+    let end = $("#toWhere").val();
+    let dateControl = $("#chosenDate").val();
 
+    var stationRequest = new XMLHttpRequest();
+    stationRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/Station?$format=JSON`);
+    stationRequest.send();
+    stationRequest.onload=function() {
+    let stationData = JSON.parse(this.responseText);
+
+    stationData.forEach((e,i)=>{
+      let num = stationData[i].StationID;
+      let stationName = stationData[i].StationName.Zh_tw;
+      options.push({name:`${stationName}`,number:`${num}`});
+      $("#fromWhere").append(`<option value="${options[i].number}">${options[i].name}</option>`);
+      $("#toWhere").append(`<option value="${options[i].number}">${options[i].name}</option>`);
+    });
+    console.log(options);
+    }
+
+   
     let fakeData =[{
     "TrainDate":"2021-04-09",
     "DailyTrainInfo":{"TrainNo":"0803","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},
@@ -262,36 +312,61 @@
     
     ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0609","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:35","DepartureTime":"07:35"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:45","DepartureTime":"09:45"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}]
 
-    $(function(){
-        $("#chosenDate").datepicker({
-          dateFormat:"yy-mm-dd"
-        });
-      });
+    
 
 
-    $("#confirm").click((event)=>{
+  $("#confirm").click((event)=>{
       event.preventDefault();
       let start = $("#fromWhere").val();
       let end = $("#toWhere").val();
       let dateControl = $("#chosenDate").val();
-      console.log(dateControl);
 
     //   var ourRequest = new XMLHttpRequest();
     // ourRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/${start}/to/${end}/${dateControl}?$format=JSON`);
     // ourRequest.send();
     // ourRequest.onload=function() {
-    //   var data = JSON.parse(this.responseText);
+    //   let data = JSON.parse(this.responseText);
     //   console.log(data);
-    // }
-    $("li").remove();
+      $("#infoDate").text(dateControl);
+      // console.log(infoDate);
+    $(".infoTable").remove();
     fakeData.forEach((e,i)=>{
         let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
         let arriveTime = fakeData[i].OriginStopTime.ArrivalTime;
-        console.log(arriveTime);
-        $("#trainNumTime").append(`<li> <span>${trainNo}</span> <span>${arriveTime}</span></li>`);
+        $("#info").append(`
+        <div class="infoTable">
+        <div class="timeInfo">
+            <span class="timeFrom">${arriveTime}</span>
+            <span class="toIcon"><i class="fas fa-long-arrow-alt-right"></i></span>
+            <span class="timeTo">17:50</span>
+        </div>
+        <div class="numPriceInfo">
+            <span class="num">車次 ${trainNo}</span>
+            <span class="price">$760</span>
+        </div>
+      </div>`);
+        
       });
+    // }
+      $("#timeApp").hide();
+      $("#showInfo").show();
 
-    });
+  });
+
+
+
+    $("#infoBack").click((event)=>{
+      event.preventDefault;
+      $("#timeApp").show();
+      $("#showInfo").hide();
+    })
+
+
+    $(function(){
+        $("#chosenDate").datepicker({
+          dateFormat:"yy-mm-dd"
+        });
+      });
     
    
 
