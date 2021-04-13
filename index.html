@@ -332,13 +332,14 @@
     $(".infoTable").remove();
     fakeData.forEach((e,i)=>{
         let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
-        let arriveTime = fakeData[i].OriginStopTime.ArrivalTime;
+        let arriveTimeA = fakeData[i].OriginStopTime.ArrivalTime;
+        let arriveTimeB = fakeData[i].DestinationStopTime.ArrivalTime;
         $("#info").append(`
         <div class="infoTable">
         <div class="timeInfo">
-            <span class="timeFrom">${arriveTime}</span>
+            <span class="timeFrom">${arriveTimeA}</span>
             <span class="toIcon"><i class="fas fa-long-arrow-alt-right"></i></span>
-            <span class="timeTo">17:50</span>
+            <span class="timeTo">${arriveTimeB}</span>
         </div>
         <div class="numPriceInfo">
             <span class="num">車次 ${trainNo}</span>
