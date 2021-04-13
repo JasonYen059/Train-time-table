@@ -245,17 +245,15 @@
     overflow: auto;
    }
 
-   
-  
     </style>    
 </head>
-  <div></div>
+ 
   
 
 <body>
   <div id="timeApp">
     <div id="title"><img src="Logo.svg">
-      <!-- <header>THSR Time</header> -->
+      
     </div>
     
      <div id="container">
@@ -377,14 +375,15 @@
       let end = $("#toWhere").val();
       let dateControl = $("#chosenDate").val();
 
+      $("#infoDate").text(dateControl);
+
     //   var ourRequest = new XMLHttpRequest();
     // ourRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/${start}/to/${end}/${dateControl}?$format=JSON`);
     // ourRequest.send();
     // ourRequest.onload=function() {
     //   let data = JSON.parse(this.responseText);
     //   console.log(data);
-      $("#infoDate").text(dateControl);
-      // console.log(infoDate);
+      
     $(".infoTable").remove();
     fakeData.forEach((e,i)=>{
         let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
@@ -409,22 +408,26 @@
       $("#timeApp").hide();
       $("#showInfo").show();
 
-    // var priceRequest = new XMLHttpRequest();
-    // priceRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/ODFare/${start}/to/${end}?$format=JSON`);
-    // priceRequest.send();
-    // priceRequest.onload=function() {
-    //   let priceData = JSON.parse(this.responseText);
-    //   console.log(priceData);
-    // }
-    // let seatType = $("#seatType").val();
-    // let thsrPrice = fakePrice[0].Fares[seatType].Price;
+    let priceDataArr = [];
+    var priceRequest = new XMLHttpRequest();
+    priceRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/ODFare/${start}/to/${end}?$format=JSON`);
+    priceRequest.send();
+    priceRequest.onload=function() {
+      let priceData = JSON.parse(this.responseText);
+      let seatType = $("#seatType").val();
+      let thsrPrice = priceData[0].Fares[seatType].Price;
+      priceDataArr.push({money:`${stationName}`});
+    }
+    console.log(priceDataArr);
     
-    
-
-
-
-
   });
+
+    // function test(data){
+    //   let seatType = $("#seatType").val();
+    //   let thsrPrice = data[0].Fares[seatType].Price;
+    
+    //   console.log(data);
+    // };
 
 
 
