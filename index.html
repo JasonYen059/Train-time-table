@@ -33,77 +33,90 @@
     align-items: center;
 }
 
-    #timeApp, #showInfo{
+    #timeApp{
       width: 400px;
-      height: 600px;
+      height: 450px;
       border-radius: 15px;
       border: none;
-      background-color: #f5f5f5;
+      background-color: #dfdfdf;
     }
 
-    header{
+    #title{
       width: 100%;
-      height: 50px;
-      font-size: 30px;
-      text-align: center;
+      height: 80px;
+      background-color: rgb(255, 255, 255);
+      border-bottom: 2px solid #ff9531;
+      border-radius: 10px 10px 0 0 ;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
+    #title img{
+      width: 53%;
+      height: auto;
+      margin: auto;
+    }
+
+   
 
     #container {
-      width: 300px;
-      height: 500px;
+      width: 350px;
+      height: 330px;
       background-color: #ffffff;
       border: none;
-      margin: auto;
+      margin: 20px auto;
+      padding: 8px;
       border-radius: 10px;
-      
+    }
+
+    #container span{
+      font-size: 25px;
     }
 
    #fromWhere, #toWhere {
-     width: 50px;
+     width: 100px;
+     height: 30px;
+     font-size: 20px;
      margin: auto;
      outline: none;
      border-radius: 5px;
      cursor: pointer;
    }
 
-   #fromWhere ,#toWhere {
-     width: 100px;
-     height: 30px;
-   }
 
    .setLocation {
      width: 300px;
-     height: 50px;
-     background-color: rgba(255, 194, 115, 0.952);
+     height: 60px;
+     margin: auto;
+     border-bottom: 2px solid rgb(102, 101, 101);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px 10px 0 0 ;
    }
 
-   .dateContainer ,.confirmDiv,.timeContainer{
+   .dateContainer ,.timeContainer, .seatTypeContainer,.confirmDiv{
     margin: 10px auto;
     width: 250px;
-    height: 40px;
+    height: 50px;
+    font-size: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    
     border-bottom: 1px solid #dfdfdf;
    }
 
-   .dateContainer p{
-     float: left;
+   .confirmDiv{
+     border: none;
+     height: 60px;
    }
 
-   #chosenDate, #confirm ,#chosenTime{
+   #chosenDate ,#chosenTime, #seatType{
      margin: auto;
      width: 250px;
      height: 35px;
+     font-size: 18px;
      background-color: white;
      border: none;
      text-align: center;
@@ -113,15 +126,30 @@
      cursor: pointer;
    }
 
-   #chosenTime {
-     text-align-last: center;
-   }
    
+
+   #confirm{
+     width: 200px;
+     height: 30px;
+     font-size: 18px;
+     border: none;
+     transition: 0.5s ease;
+     cursor: pointer;
+     background-color:#ff944d ;
+     border-radius: 5px;
+     color: white;
+   }
 
    #confirm:hover {
      box-shadow: 2px 2px rgb(139, 139, 139);
+     background-color:#ff822e ;
    }
 
+   select{
+     text-align-last: center;
+   }
+
+   
    #timeTable{
      width: 300px;
      height: 350px;
@@ -131,7 +159,12 @@
    
 /* ------------------------------------------------------------------------- */
    #showInfo{
-     display: none;
+    width: 400px;
+    height: 600px;
+    border-radius: 15px;
+    border: none;
+    background-color: #dfdfdf;
+    display: none;
    }
 
 
@@ -147,7 +180,7 @@
     color: white;
     background-color: white;
     position: relative;
-    background-color: rgba(255, 194, 115, 0.952);
+    background-color: rgb(102, 101, 101);
    }
 
    #info {
@@ -176,7 +209,7 @@
      background-color: white;
       border-radius: 10px;
       margin: 10px auto;
-      box-shadow: 1px 1px rgb(0, 0, 0);
+      box-shadow: 2px 2px rgb(56, 56, 56);
     }
 
     .timeInfo , .numPriceInfo{
@@ -189,13 +222,19 @@
     align-items: center;
     }
 
+    .timeInfo{
+      border-radius: 10px 10px 0 0;
+      background-color:#ffbc65 ;
+    }
+
+
     .timeFrom, .timeTo , .toIcon, .num , .price{
       width: 100px;
       text-align:center ;
     }
 
     .numPriceInfo{
-      border-top: 2px solid #f5f5f5;
+      border-top: 2px solid #bdbdbd;
     }
 
 
@@ -215,8 +254,8 @@
 
 <body>
   <div id="timeApp">
-    <div id="title">
-      <header>THSR Time</header>
+    <div id="title"><img src="Logo.svg">
+      <!-- <header>THSR Time</header> -->
     </div>
     
      <div id="container">
@@ -224,6 +263,7 @@
        <select id="fromWhere" >
         <option value="" disabled selected>出發</option> 
        </select>
+       <span><i class="fas fa-long-arrow-alt-right"></i></span>
        <select id="toWhere" >
         <option value="" disabled selected>目的地</option>
       </select>
@@ -232,11 +272,11 @@
 
        <div class="dateContainer">
         <p><i class="far fa-calendar-alt"></i></p>
-        <input id="chosenDate" placeholder="Choose your date...">
+        <input id="chosenDate" value ="123" >
        </div>
 
        <div class="timeContainer">
-        <p><i class="far fa-clock"></i></i></p>
+        <p><i class="far fa-clock"></i></p>
         <select name="time" id="chosenTime">
           <option value="">14 : 25</option>
           <option value="">14 : 40</option>
@@ -245,8 +285,18 @@
         </select>
        </div>
 
+       <div class="seatTypeContainer">
+        <p><i class="fas fa-train"></i></p>
+        <select name="seatType" id="seatType">
+          <option value="" disabled selected>車廂種類</option>
+          <option value="0">商務車廂</option>
+          <option value="1">標準車廂</option>
+          <option value="2">自由座車廂</option>
+        </select>
+       </div>
+
        <div class="confirmDiv">
-        <button id="confirm">確 定</button>
+        <button id="confirm">查 詢</button>
        </div>
      </div>
     </div>
@@ -255,7 +305,7 @@
     <div id="showInfo">
       <div id="infoTitle">
         <span id="infoBack"><i class="fas fa-chevron-left"></i></span>
-        <p id="infoDate">111</p>
+        <p id="infoDate"></p>
       </div>
       <div id="info">
         <!-- <div class="infoTable">
@@ -275,6 +325,10 @@
         
 
     <script type="text/javascript">
+    var today = new Date();
+    $("#chosenDate").val(`${today.getFullYear()}-0${today.getMonth()+1}-${today.getDate()}`);
+   
+    
     var options = [];
     let start = $("#fromWhere").val();
     let end = $("#toWhere").val();
@@ -312,7 +366,9 @@
     
     ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0609","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:35","DepartureTime":"07:35"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:45","DepartureTime":"09:45"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}]
 
-    
+    let fakePrice=[
+    {"OriginStationID":"0990","OriginStationName":{"Zh_tw":"南港","En":"Nangang"},"DestinationStationID":"1070","DestinationStationName":{"Zh_tw":"左營","En":"Zuoying"},"Direction":0,"Fares":[{"TicketType":"商務","Price":2500.0},{"TicketType":"標準","Price":1530.0},{"TicketType":"自由","Price":1480.0}],"SrcUpdateTime":"2020-07-23T09:13:41+08:00","UpdateTime":"2020-07-24T06:49:13+08:00","VersionID":5}
+    ]
 
 
   $("#confirm").click((event)=>{
@@ -334,6 +390,8 @@
         let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
         let arriveTimeA = fakeData[i].OriginStopTime.ArrivalTime;
         let arriveTimeB = fakeData[i].DestinationStopTime.ArrivalTime;
+        let seatType = $("#seatType").val();
+        let thsrPrice = fakePrice[0].Fares[seatType].Price;
         $("#info").append(`
         <div class="infoTable">
         <div class="timeInfo">
@@ -343,14 +401,28 @@
         </div>
         <div class="numPriceInfo">
             <span class="num">車次 ${trainNo}</span>
-            <span class="price">$760</span>
+            <span class="price">$${thsrPrice}</span>
         </div>
       </div>`);
-        
       });
     // }
       $("#timeApp").hide();
       $("#showInfo").show();
+
+    // var priceRequest = new XMLHttpRequest();
+    // priceRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/ODFare/${start}/to/${end}?$format=JSON`);
+    // priceRequest.send();
+    // priceRequest.onload=function() {
+    //   let priceData = JSON.parse(this.responseText);
+    //   console.log(priceData);
+    // }
+    // let seatType = $("#seatType").val();
+    // let thsrPrice = fakePrice[0].Fares[seatType].Price;
+    
+    
+
+
+
 
   });
 
