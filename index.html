@@ -188,7 +188,7 @@
       height: 560px;
       background-color: #f5f5f5;
       border: none;
-      border-radius: 10px;
+      border-radius: 0 0 10px 10px;
       overflow: auto;
     }
 
@@ -276,10 +276,18 @@
        <div class="timeContainer">
         <p><i class="far fa-clock"></i></p>
         <select name="time" id="chosenTime">
-          <option value="">14 : 25</option>
-          <option value="">14 : 40</option>
-          <option value="">15 : 25</option>
-          <option value="">15 : 40</option>
+          <option value="06:15">06 : 15</option>
+          <option value="07:30">07 : 30</option>
+          <option value="08:00">08 : 00</option>
+          <option value="09:20">09 : 20</option>
+          <option value="10:30">10 : 30</option>
+          <option value="11:15">11 : 15</option>
+          <option value="12:30">12 : 30</option>
+          <option value="13:40">13 : 40</option>
+          <option value="14:25">14 : 25</option>
+          <option value="15:40">15 : 40</option>
+          <option value="16:25">16 : 25</option>
+          <option value="17:40">17 : 40</option>
         </select>
        </div>
 
@@ -328,6 +336,7 @@
    
     
     var options = [];
+    let priceDataArr = [];
     let start = $("#fromWhere").val();
     let end = $("#toWhere").val();
     let dateControl = $("#chosenDate").val();
@@ -337,7 +346,6 @@
     stationRequest.send();
     stationRequest.onload=function() {
     let stationData = JSON.parse(this.responseText);
-
     stationData.forEach((e,i)=>{
       let num = stationData[i].StationID;
       let stationName = stationData[i].StationName.Zh_tw;
@@ -345,52 +353,68 @@
       $("#fromWhere").append(`<option value="${options[i].number}">${options[i].name}</option>`);
       $("#toWhere").append(`<option value="${options[i].number}">${options[i].name}</option>`);
     });
-    console.log(options);
     }
 
    
-    let fakeData =[{
-    "TrainDate":"2021-04-09",
-    "DailyTrainInfo":{"TrainNo":"0803","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},
-    "OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:15","DepartureTime":"06:15"},
-    "DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:40","DepartureTime":"08:40"},
-    "UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    // let fakeData =[{
+    // "TrainDate":"2021-04-09",
+    // "DailyTrainInfo":{"TrainNo":"0803","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},
+    // "OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:15","DepartureTime":"06:15"},
+    // "DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:40","DepartureTime":"08:40"},
+    // "UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
     
-    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0603","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:40","DepartureTime":"06:40"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:50","DepartureTime":"08:50"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    // ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0603","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"06:40","DepartureTime":"06:40"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"08:50","DepartureTime":"08:50"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
     
-    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0805","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:00","DepartureTime":"07:00"},"DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:25","DepartureTime":"09:25"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    // ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0805","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:00","DepartureTime":"07:00"},"DestinationStopTime":{"StopSequence":12,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:25","DepartureTime":"09:25"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
     
-    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0109","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:20","DepartureTime":"07:20"},"DestinationStopTime":{"StopSequence":5,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:05","DepartureTime":"09:05"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
+    // ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0109","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:20","DepartureTime":"07:20"},"DestinationStopTime":{"StopSequence":5,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:05","DepartureTime":"09:05"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}
     
-    ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0609","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:35","DepartureTime":"07:35"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:45","DepartureTime":"09:45"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}]
+    // ,{"TrainDate":"2021-04-09","DailyTrainInfo":{"TrainNo":"0609","Direction":0,"StartingStationID":"0990","StartingStationName":{"Zh_tw":"南港","En":"Nangang"},"EndingStationID":"1070","EndingStationName":{"Zh_tw":"左營","En":"Zuoying"},"Note":{}},"OriginStopTime":{"StopSequence":1,"StationID":"0990","StationName":{"Zh_tw":"南港","En":"Nangang"},"ArrivalTime":"07:35","DepartureTime":"07:35"},"DestinationStopTime":{"StopSequence":9,"StationID":"1070","StationName":{"Zh_tw":"左營","En":"Zuoying"},"ArrivalTime":"09:45","DepartureTime":"09:45"},"UpdateTime":"2021-02-09T00:00:00+08:00","VersionID":1}]
 
-    let fakePrice=[
-    {"OriginStationID":"0990","OriginStationName":{"Zh_tw":"南港","En":"Nangang"},"DestinationStationID":"1070","DestinationStationName":{"Zh_tw":"左營","En":"Zuoying"},"Direction":0,"Fares":[{"TicketType":"商務","Price":2500.0},{"TicketType":"標準","Price":1530.0},{"TicketType":"自由","Price":1480.0}],"SrcUpdateTime":"2020-07-23T09:13:41+08:00","UpdateTime":"2020-07-24T06:49:13+08:00","VersionID":5}
-    ]
+    // let fakePrice=[
+    // {"OriginStationID":"0990","OriginStationName":{"Zh_tw":"南港","En":"Nangang"},"DestinationStationID":"1070","DestinationStationName":{"Zh_tw":"左營","En":"Zuoying"},"Direction":0,"Fares":[{"TicketType":"商務","Price":2500.0},{"TicketType":"標準","Price":1530.0},{"TicketType":"自由","Price":1480.0}],"SrcUpdateTime":"2020-07-23T09:13:41+08:00","UpdateTime":"2020-07-24T06:49:13+08:00","VersionID":5}
+    // ]
+    
+    
 
-
+    
+// -------------------------------------------click event---------------------------------------------------------------
   $("#confirm").click((event)=>{
       event.preventDefault();
       let start = $("#fromWhere").val();
       let end = $("#toWhere").val();
       let dateControl = $("#chosenDate").val();
+      let chooseTime = $("#chosenTime").val();
 
       $("#infoDate").text(dateControl);
 
-    //   var ourRequest = new XMLHttpRequest();
-    // ourRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/${start}/to/${end}/${dateControl}?$format=JSON`);
-    // ourRequest.send();
-    // ourRequest.onload=function() {
-    //   let data = JSON.parse(this.responseText);
-    //   console.log(data);
+      var priceRequest = new XMLHttpRequest();
+    priceRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/ODFare/${start}/to/${end}?$format=JSON`);
+    priceRequest.send();
+    priceRequest.onload=function() {
+      let priceData = JSON.parse(this.responseText);
+      let seatType = $("#seatType").val();
+      let thsrPrice = priceData[0].Fares[seatType].Price;
+      priceDataArr.push({money:`${thsrPrice}`});
+      console.log(priceDataArr);
+    }
+
+      var ourRequest = new XMLHttpRequest();
+    ourRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/DailyTimetable/OD/${start}/to/${end}/${dateControl}?$format=JSON`);
+    ourRequest.send();
+    ourRequest.onload=function() {
+      let data = JSON.parse(this.responseText);
+      let filtData = data.filter(function(item,i){
+      return item.OriginStopTime.ArrivalTime >= `${chooseTime}`;
+    });
+      console.log(filtData);
       
     $(".infoTable").remove();
-    fakeData.forEach((e,i)=>{
-        let trainNo = fakeData[i].DailyTrainInfo.TrainNo;
-        let arriveTimeA = fakeData[i].OriginStopTime.ArrivalTime;
-        let arriveTimeB = fakeData[i].DestinationStopTime.ArrivalTime;
-        let seatType = $("#seatType").val();
-        let thsrPrice = fakePrice[0].Fares[seatType].Price;
+    filtData.forEach((e,i)=>{
+        let trainNo = filtData[i].DailyTrainInfo.TrainNo;
+        let arriveTimeA = filtData[i].OriginStopTime.ArrivalTime;
+        let arriveTimeB = filtData[i].DestinationStopTime.ArrivalTime;
+        let thsrPrice = priceDataArr[0].money;
         $("#info").append(`
         <div class="infoTable">
         <div class="timeInfo">
@@ -404,32 +428,13 @@
         </div>
       </div>`);
       });
-    // }
+    }
+    
       $("#timeApp").hide();
       $("#showInfo").show();
 
-    let priceDataArr = [];
-    var priceRequest = new XMLHttpRequest();
-    priceRequest.open('Get',`https://ptx.transportdata.tw/MOTC/v2/Rail/THSR/ODFare/${start}/to/${end}?$format=JSON`);
-    priceRequest.send();
-    priceRequest.onload=function() {
-      let priceData = JSON.parse(this.responseText);
-      let seatType = $("#seatType").val();
-      let thsrPrice = priceData[0].Fares[seatType].Price;
-      priceDataArr.push({money:`${stationName}`});
-    }
-    console.log(priceDataArr);
-    
   });
-
-    // function test(data){
-    //   let seatType = $("#seatType").val();
-    //   let thsrPrice = data[0].Fares[seatType].Price;
-    
-    //   console.log(data);
-    // };
-
-
+// -------------------------------------------------click event-------------------------------------------------------------
 
     $("#infoBack").click((event)=>{
       event.preventDefault;
